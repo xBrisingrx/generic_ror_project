@@ -3,21 +3,24 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th scope="col" class="px-6 py-3">
-            Name
+          <th id="players-name" scope="col" class="text-left px-6 py-3 relative">
+            <%= sort_indicator if params[:column] == "name" %>
+            <%= sort_link(column: "name", label: "Name") %>
           </th>
-          <th scope="col" class="px-6 py-3">
-            Team
+          <th id="players-seasons" scope="col" class="text-left px-6 py-3 relative">
+            <%= sort_indicator if params[:column] == "seasons" %>
+            <%= sort_link(column: "seasons", label: "Season") %>
           </th>
-          <th scope="col" class="px-6 py-3">
-            Season
+          <th id="players-team" scope="col" class="text-left px-6 py-3 relative">
+            <%= sort_indicator if params[:column] == "teams.name" %>
+            <%= sort_link(column: "teams.name", label: "Team") %>
           </th>
           <th scope="col" class="px-6 py-3">
             Acciones
           </th>
         </tr>
       </thead>
-        <tbody id="products_table_body">
+        <tbody id="players_table_body">
           <%= render @players %>
         </tbody>
     </table>

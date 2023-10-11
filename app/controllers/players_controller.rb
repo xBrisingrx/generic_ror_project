@@ -7,8 +7,9 @@ class PlayersController < ApplicationController
   end
 
   def list
-    @players = Player.includes(:team).order("#{params[:column]} #{params[:direction]}")
-    render(partial: 'players_table', locals: { players: @players })
+    @filter = Player.includes(:team).order("#{params[:column]} #{params[:direction]}")
+    @pagy, @players = pagy( @filter )
+    render(partial: 'players_table', locals: { players: @filter })
   end
 
   # GET /players/1 or /players/1.json

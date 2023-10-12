@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  include Filterable
   before_action :set_player, only: %i[ show edit update destroy ]
 
   # GET /players or /players.json
@@ -7,9 +8,9 @@ class PlayersController < ApplicationController
   end
 
   def list
-    @filter = Player.includes(:team).order("#{params[:column]} #{params[:direction]}")
-    @pagy, @players = pagy( @filter )
-    render(partial: 'players_table', locals: { players: @filter })
+    filter = filter!(Player)
+    @pagy, @players = pagy( filter )
+    render(partial: 'players_table', locals: { players: filter })
   end
 
   # GET /players/1 or /players/1.json

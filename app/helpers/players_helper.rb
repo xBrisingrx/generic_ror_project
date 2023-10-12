@@ -1,6 +1,6 @@
 module PlayersHelper
-  def sort_link(column:, label:)
-    if column == params[:column]
+  def build_order_link(column:, label:)
+    if column == session.dig('player_filters', 'column')
       link_to(label, list_players_path(column: column, direction: next_direction))
     else
       link_to(label, list_players_path(column: column, direction: 'asc'))

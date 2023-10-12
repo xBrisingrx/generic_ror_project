@@ -4,16 +4,16 @@
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th id="players-name" scope="col" class="text-left px-6 py-3 relative">
-            <%= sort_indicator if params[:column] == "name" %>
-            <%= sort_link(column: "name", label: "Name") %>
+            <%= sort_indicator if session.dig('player_filters', 'column') == "name" %>
+            <%= build_order_link(column: "name", label: "Name") %>
           </th>
           <th id="players-seasons" scope="col" class="text-left px-6 py-3 relative">
-            <%= sort_indicator if params[:column] == "seasons" %>
-            <%= sort_link(column: "seasons", label: "Season") %>
+            <%= sort_indicator if session.dig('player_filters', 'column') == "seasons" %>
+            <%= build_order_link(column: "seasons", label: "Seasons") %>
           </th>
           <th id="players-team" scope="col" class="text-left px-6 py-3 relative">
-            <%= sort_indicator if params[:column] == "teams.name" %>
-            <%= sort_link(column: "teams.name", label: "Team") %>
+            <%= sort_indicator if session.dig('player_filters', 'column') == "teams.name" %>
+            <%= build_order_link(column: "teams.name", label: "Team") %>
           </th>
           <th scope="col" class="px-6 py-3">
             Acciones

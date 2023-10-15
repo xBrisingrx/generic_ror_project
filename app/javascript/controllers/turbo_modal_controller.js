@@ -15,7 +15,6 @@ export default class extends Controller {
     document.body.classList.remove("overflow-hidden")
   }
   submitEnd(e) {
-    debugger
     if (e.detail.success) {
       this.hideModal()
     }

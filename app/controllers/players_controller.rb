@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   include Filterable
-  before_action :set_player, only: %i[ show edit update destroy ]
+  before_action :set_player, only: %i[ show edit update destroy disable_modal ]
 
   # GET /players or /players.json
   def index
@@ -56,11 +56,14 @@ class PlayersController < ApplicationController
     end
   end
 
+  def disable_modal;end
+
   # DELETE /players/1 or /players/1.json
   def destroy
     @player.destroy!
 
     respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove( @player ) }
       format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
       format.json { head :no_content }
     end

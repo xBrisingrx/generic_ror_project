@@ -7,8 +7,11 @@
 
   <div class="my-5">
     <%= form.label :team_id %>
-    <%= form.select(:team_id, @teams.collect {|t| ["#{t.name}", t.id]}, { include_blank: true},
-                      class: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500', required: true, placeholder: "Seleccione el equipo") %>
+    <%= form.select(:team_id, @teams.collect {|t| ["#{t.name}", t.id]}, {},
+                      data: { controller: "tselect"},
+                      class: 'block w-full rounded-sm cursor-pointer focus:outline-none', 
+                      required: true, 
+                      placeholder: "Seleccione el equipo") %>
     <%= inline_error_for(:team, player) %>
   </div>
 

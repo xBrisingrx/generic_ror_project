@@ -46,6 +46,7 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
+        format.turbo_stream { render turbo_stream: turbo_stream.replace( @player, @player ) }
         format.html { redirect_to player_url(@player), notice: "Player was successfully updated." }
         format.json { render :show, status: :ok, location: @player }
       else

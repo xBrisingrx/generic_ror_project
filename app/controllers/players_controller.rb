@@ -32,6 +32,7 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       if @player.save
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend( "players_table_body", partial: "players/player", locals: {player: @player} )  }
         format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
         format.json { render :show, status: :created, location: @player }
       else

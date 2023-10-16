@@ -15,6 +15,7 @@ class PlayersController < ApplicationController
 
   # GET /players/1 or /players/1.json
   def show
+    flash[:notice] = 'Just testing, dude'
   end
 
   # GET /players/new
@@ -34,7 +35,11 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       if @player.save
-        format.turbo_stream { render turbo_stream: turbo_stream.prepend( "players_table_body", partial: "players/player", locals: {player: @player} )  }
+        flash.now[:notice] = "Jugador registrado"
+        format.turbo_stream { render turbo_stream: [
+          turbo_stream.prepend( "players_table_body", partial: "players/player", locals: {player: @player} ),
+          turbo_stream.replace( "notifications", partial: "shared/notifications")
+        ] }
         format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
         format.json { render :show, status: :created, location: @player }
       else
@@ -48,7 +53,11 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace( @player, @player ) }
+        flash.now[:notice] = "Datos del jugador actualizados"
+        format.turbo_stream { render turbo_stream: [
+          turbo_stream.replace( @player, @player ),
+          turbo_stream.replace( "notifications", partial: "shared/notifications")
+        ] }
         format.html { redirect_to player_url(@player), notice: "Player was successfully updated." }
         format.json { render :show, status: :ok, location: @player }
       else
@@ -63,9 +72,12 @@ class PlayersController < ApplicationController
   # DELETE /players/1 or /players/1.json
   def destroy
     @player.destroy!
-
+    flash.now[:notice] = "Jugador eliminado"
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove( @player ) }
+      format.turbo_stream { render turbo_stream: [
+        turbo_stream.remove( @player ),
+      turbo_stream.replace( "notifications", partial: "shared/notifications") 
+      ] }
       format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
       format.json { head :no_content }
     end

@@ -12,6 +12,8 @@ export default class extends Controller {
   hideModal() {
     leave(this.modalTarget);
     leave(this.panelTarget);
+    this.element.parentElement.removeAttribute("src")
+    this.element.remove()
     document.body.classList.remove("overflow-hidden")
   }
   submitEnd(e) {    
